@@ -99,8 +99,12 @@
 	}
 
 	function render() {
-		progress = ensureToday(progress, todayKey(realTimeProvider));
-		progress = progressRepository.save(progress);
+		const ensuredProgress = ensureToday(progress, todayKey(realTimeProvider));
+		if (ensuredProgress !== progress) {
+			progress = progressRepository.save(ensuredProgress);
+		} else {
+			progress = ensuredProgress;
+		}
 		timerDisplay.textContent = formatSeconds(getRemainingSeconds(state, realTimeProvider));
 		modeLabel.textContent = getModeLabel(state.mode);
 		completedCount.textContent = String(progress.completedCount);
