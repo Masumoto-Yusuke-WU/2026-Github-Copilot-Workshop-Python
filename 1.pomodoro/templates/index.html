@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポモドーロタイマー</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <div class="screen">
+    <div class="card">
+
+      <!-- ウィンドウ風ヘッダー -->
+      <div class="card-header">
+        <span class="card-title">ポモドーロタイマー</span>
+        <div class="window-controls">
+          <span class="wc-btn">&#8722;</span>
+          <span class="wc-btn">&#9633;</span>
+          <span class="wc-btn">&#215;</span>
+        </div>
+      </div>
+
+      <!-- タイマー本体 -->
+      <div class="timer-section">
+        <p class="mode-label" id="mode-label">作業中</p>
+
+        <!-- 円形プログレス -->
+        <div class="ring-container">
+          <svg class="ring-svg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <!-- トラック（背景リング） -->
+            <circle
+              class="ring-track"
+              cx="100" cy="100" r="80"
+              fill="none"
+              stroke-width="14"
+            />
+            <!-- プログレスリング -->
+            <circle
+              class="ring-progress"
+              id="ring-progress"
+              cx="100" cy="100" r="80"
+              fill="none"
+              stroke-width="14"
+              stroke-linecap="round"
+              transform="rotate(-90 100 100)"
+            />
+          </svg>
+          <!-- 残り時間テキスト -->
+          <div class="ring-time" id="timer-display">25:00</div>
+        </div>
+      </div>
+
+      <!-- 操作ボタン -->
+      <div class="controls">
+        <button class="btn btn-primary" id="btn-start">開始</button>
+        <button class="btn btn-outline" id="btn-reset">リセット</button>
+      </div>
+
+      <!-- 設定 -->
+      <div class="settings-card">
+        <p class="settings-title">設定（分）</p>
+        <div class="settings-grid">
+          <label class="setting-item" for="setting-work">
+            <span class="setting-label">作業</span>
+            <input class="setting-input" id="setting-work" type="number" min="1" step="1">
+          </label>
+          <label class="setting-item" for="setting-short-break">
+            <span class="setting-label">短休憩</span>
+            <input class="setting-input" id="setting-short-break" type="number" min="1" step="1">
+          </label>
+          <label class="setting-item" for="setting-long-break">
+            <span class="setting-label">長休憩</span>
+            <input class="setting-input" id="setting-long-break" type="number" min="1" step="1">
+          </label>
+          <label class="setting-item" for="setting-interval">
+            <span class="setting-label">長休憩間隔</span>
+            <input class="setting-input" id="setting-interval" type="number" min="1" step="1">
+          </label>
+        </div>
+        <button class="btn btn-small" id="btn-save-settings" type="button">設定を保存</button>
+      </div>
+
+      <!-- 今日の進捗カード -->
+      <div class="progress-card">
+        <p class="progress-card-title">今日の進捗</p>
+        <div class="progress-stats">
+          <div class="stat">
+            <span class="stat-value" id="completed-count">0</span>
+            <span class="stat-label">完了</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value stat-value--accent" id="focus-time">0分</span>
+            <span class="stat-label">集中時間</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='js/timer-engine.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/session-policy.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/progress-service.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/repositories.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/notification-service.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
