@@ -1,3 +1,4 @@
+import os
 from flask import Flask, render_template
 
 
@@ -15,5 +16,6 @@ app = create_app()
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    debug_mode = os.getenv("FLASK_DEBUG", "false").strip().lower() in ("1", "true", "yes", "on")
+    app.run(debug=debug_mode)
 
