@@ -26,11 +26,14 @@ function toPositiveInt(value, fallback) {
 
 function sanitizeSettings(input, defaultSettings) {
 	const base = defaultSettings || {};
+	const normalizedInput = input && typeof input === 'object' && !Array.isArray(input)
+		? input
+		: {};
 	return {
-		workMinutes: toPositiveInt(input.workMinutes, base.workMinutes),
-		shortBreakMinutes: toPositiveInt(input.shortBreakMinutes, base.shortBreakMinutes),
-		longBreakMinutes: toPositiveInt(input.longBreakMinutes, base.longBreakMinutes),
-		longBreakInterval: toPositiveInt(input.longBreakInterval, base.longBreakInterval),
+		workMinutes: toPositiveInt(normalizedInput.workMinutes, base.workMinutes),
+		shortBreakMinutes: toPositiveInt(normalizedInput.shortBreakMinutes, base.shortBreakMinutes),
+		longBreakMinutes: toPositiveInt(normalizedInput.longBreakMinutes, base.longBreakMinutes),
+		longBreakInterval: toPositiveInt(normalizedInput.longBreakInterval, base.longBreakInterval),
 	};
 }
 
